@@ -1,0 +1,70 @@
+type Timestamp = int;
+type RoomType = 
+ variant {
+   Bedroom;
+   Kitchen;
+   LivingRoom;
+   Studio;
+ };
+type GalleryItem = 
+ record {
+   afterImageUrl: text;
+   beforeImageUrl: text;
+   description: text;
+   designTips: vec text;
+   id: nat;
+   relatedProductIds: vec nat;
+   roomType: RoomType;
+   style: DesignStyle;
+   title: text;
+ };
+type DesignStyle = 
+ variant {
+   Eclectic;
+   Luxury;
+   Minimalist;
+   Modern;
+ };
+type DesignResult = 
+ record {
+   createdAt: Timestamp;
+   id: DesignId;
+   imageKey: text;
+   selectedStyle: text;
+   shareUrl: opt text;
+ };
+type DesignId = nat;
+type BlogPost = 
+ record {
+   author: text;
+   body: text;
+   category: text;
+   excerpt: text;
+   featuredImageUrl: text;
+   id: nat;
+   publishedAt: Timestamp;
+   readTimeMinutes: nat;
+   slug: text;
+   tags: vec text;
+   title: text;
+ };
+type BlogPage = 
+ record {
+   page: nat;
+   pageSize: nat;
+   posts: vec BlogPost;
+   total: nat;
+ };
+service : {
+  getBlogPostBySlug: (slug: text) -> (opt BlogPost) query;
+  getFeaturedBlogPosts: (limit: nat) -> (vec BlogPost) query;
+  getGalleryItem: (id: nat) -> (opt GalleryItem) query;
+  getRelatedBlogPosts: (category: text, excludeId: nat, limit: nat) ->
+   (vec BlogPost) query;
+  listBlogPostsByCategory: (category: text, page: nat, pageSize: nat) ->
+   (BlogPage) query;
+  listGalleryItems: (roomType: opt RoomType, style: opt DesignStyle) ->
+   (vec GalleryItem) query;
+  listMyDesigns: () -> (vec DesignResult) query;
+  saveDesign: (imageKey: text, selectedStyle: text) -> (DesignResult);
+}

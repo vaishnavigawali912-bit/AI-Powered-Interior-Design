@@ -1,0 +1,68 @@
+// Version: 1.0.0
+type BlogPost__55979186 = BlogPost__72627970;
+type BlogPost__72627970 =
+  {
+    author : Text;
+    body : Text;
+    category : Text;
+    excerpt : Text;
+    featuredImageUrl : Text;
+    id : Nat;
+    publishedAt : Timestamp__301639476;
+    readTimeMinutes : Nat;
+    slug : Text;
+    tags : [Text];
+    title : Text
+  };
+type DesignId__339465607 = Nat;
+type DesignSession__322176893 = DesignSession__932230492;
+type DesignSession__932230492 =
+  {
+    createdAt : Timestamp__301639476;
+    id : DesignId__339465607;
+    imageKey : Text;
+    owner : Principal;
+    selectedStyle : Text;
+    shareUrl : ?Text
+  };
+type DesignStyle__1025558653 = {#Eclectic; #Luxury; #Minimalist; #Modern};
+type GalleryItem__85588320 =
+  {
+    afterImageUrl : Text;
+    beforeImageUrl : Text;
+    description : Text;
+    designTips : [Text];
+    id : Nat;
+    relatedProductIds : [Nat];
+    roomType : RoomType__600163126;
+    style : DesignStyle__1025558653;
+    title : Text
+  };
+type GalleryItem__881907943 = GalleryItem__85588320;
+type Nat__490723111 = Nat__920180692;
+type Nat__920180692 = Nat;
+type RoomType__600163126 = {#Bedroom; #Kitchen; #LivingRoom; #Studio};
+type Timestamp__301639476 = Int;
+actor {
+  stable blogPosts :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?BlogPost__55979186]];
+      var elementIndex : Nat__490723111
+    };
+  stable designs :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?DesignSession__322176893]];
+      var elementIndex : Nat__490723111
+    };
+  stable galleryItems :
+    {
+      var blockIndex : Nat__490723111;
+      var blocks : [var [var ?GalleryItem__881907943]];
+      var elementIndex : Nat__490723111
+    };
+  stable var nextBlogId : Nat;
+  stable var nextDesignId : Nat;
+  stable var nextGalleryId : Nat
+};
